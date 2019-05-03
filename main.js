@@ -4,8 +4,20 @@ const express = require('express')
 const server = express()
 
 server.get('/Saludo', function (req, res) {
-  changeWindow();
-  res.send('Saludo Amistoso');
+  Saludo();
+})
+
+server.get('/Descansa', function (req,res){
+  Saludo();
+  app.quit();
+})
+
+server.get('/Comandos', function (req,res){
+  Comandos();
+})
+
+server.get('/EncenderLuz', function (req,res){
+  EncenderLuz();
 })
 
 server.listen(3000, function () {
@@ -22,7 +34,7 @@ const url = require('url')
 let mainWindow
 
 function createWindow () {
-  // Creamos ventana y asignamos tamaño
+  // Creamos ventana y asignamos tamaï¿½o
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
   // Carga de pagina HTML
@@ -43,7 +55,7 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow)
-app.on('redis', changeWindow)
+app.on('redis', Saludo)
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
   // On OS X it is common for applications and their menu bar
@@ -61,10 +73,41 @@ app.on('activate', function () {
   }
 })
 
-function changeWindow () {
+function Saludo() {
   // Para cambiar a la otra pagina al tener URL Saludo
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'pagina.html'),
+    pathname: path.join(__dirname, 'saludo.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+  mainWindow.setFullScreen(true)
+	mainWindow.setMenu(null)
+}
+
+function Comandos() {
+  // Para cambiar a la otra pagina al tener URL Saludo
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'comandos.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+  mainWindow.setFullScreen(true)
+	mainWindow.setMenu(null)
+}
+function EncenderLuz() {
+  // Para cambiar a la otra pagina al tener URL Saludo
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'encenderluz.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+  mainWindow.setFullScreen(true)
+	mainWindow.setMenu(null)
+}
+function ApagarLuz() {
+  // Para cambiar a la otra pagina al tener URL Saludo
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'apagarluz.html'),
     protocol: 'file:',
     slashes: true
   }))
